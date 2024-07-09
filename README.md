@@ -4,7 +4,7 @@ This repository contains a collection of programs that demonstrate various data 
 
 ## Contents
 
-- **Linked Lists**: Implementations of singly linked lists their applications and circular doubly linked lists.
+- **Linked Lists**: Implementations of singly linked lists (also their applications) and circular doubly linked lists.
 - **Stacks**: Demonstration of stack operations using linked lists.
 - **Queues**: Implementation of queues using linked lists.
 - **Trees**: Binary trees, binary search trees, MST.
