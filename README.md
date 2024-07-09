@@ -6,7 +6,7 @@ This repository contains a collection of programs that demonstrate various data 
 
 - **Linked Lists**: Implementations of singly linked lists their applications and circular doubly linked lists.
 - **Stacks**: Demonstration of stack operations using linked lists.
-- **Queues**: Implementation of simple and circular queues using linked lists.
+- **Queues**: Implementation of queues using linked lists.
 - **Trees**: Binary trees, binary search trees, MST.
 - **Graphs**: Representation of graphs using lists, along with depth-first search (DFS) and breadth-first search (BFS) algorithms.
 - **Hashing**: Hash search.
