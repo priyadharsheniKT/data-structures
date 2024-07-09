@@ -1,0 +1,90 @@
+using namespace std;
+#include<iostream>
+struct Node
+{
+int data;
+struct Node* flink; // Right child
+struct Node* blink; // Left child
+}*head;
+void insertNodes(int i, char child, struct Node* parent)
+{
+int value;
+cout << "Enter the value of the parent " << i << ": ";
+cin >> value;
+if (value == 0)
+{
+parent = NULL;
+return;
+}
+struct Node* temp = new Node;
+temp->data = value;
+temp->blink = NULL;
+temp->flink = NULL;
+if (child == 'l')
+{
+parent->blink = temp;
+}
+else if (child == 'r')
+{
+parent->flink = temp;
+}
+else
+head = temp;
+parent = temp;
+insertNodes(2 * i, 'l', parent);
+insertNodes(2 * i + 1, 'r', parent);
+}
+void traversal1(struct Node* parent)
+
+{
+if (parent == NULL)
+return;
+traversal1(parent->blink); //Left child
+cout << parent->data << "\t";
+traversal1(parent->flink); //Right child
+}
+void traversal2(struct Node* parent)
+{
+if (parent == NULL)
+return;
+cout << parent->data << "\t";
+traversal2(parent->blink); //Left child
+traversal2(parent->flink); //Right child
+}
+void traversal3(struct Node* parent)
+{
+if (parent == NULL)
+return;
+traversal2(parent->blink); //Left child
+traversal2(parent->flink); //Right child
+cout << parent->data << "\t";
+}
+int main()
+{
+head = NULL;
+insertNodes(1, 'x', head);
+int choice;
+cout<<"Enter 1.Inorder 2.Preorder 3.Postorder 4.Exit"<<endl;
+do
+{
+cout<<"\nEnter your choice?";
+cin>>choice;
+switch(choice)
+{
+case 1:
+cout<<"inorder"<<endl;
+traversal1(head);
+break;
+case 2:
+cout<<"preorder"<<endl;
+traversal2(head);
+break;
+case 3:
+cout<<"post order"<<endl;
+traversal3(head);
+break;
+case 4:
+break;
+}
+}while(choice!=4);
+}

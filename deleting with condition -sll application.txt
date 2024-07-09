@@ -1,0 +1,118 @@
+#include<iostream>
+using namespace std;
+struct Node
+{
+string name;
+int age;
+Node* link;
+};
+struct Head
+{
+int count;
+Node* link;
+};
+void createList(Head* head)
+{
+head->count=0;
+head->link=NULL;
+}
+void insertSLL(Head* head,string n,int a)
+{
+Node* pnew=new Node;
+pnew->name=n;
+pnew->age=a;
+pnew->link=head->link;
+head->link=pnew;
+head->count+=1;
+}
+void deleteData(Head* head,Node* ppre)
+{
+if(ppre==NULL)
+{
+if(head->link==NULL)
+{
+cout<<"Empty list"<<endl;
+}
+else
+{
+if(head->count==1)
+head->link=NULL;
+else
+head->link=head->link->link;
+}
+}
+else
+{
+if(ppre->link->link==NULL)
+{
+ppre->link=NULL;
+}
+else
+{
+ppre->link=ppre->link->link;
+}
+}
+head->count-=1;
+}
+Node* locatelist(Head* head,Node* ploc)
+{
+Node* ploc1=head->link;
+Node* ppre=NULL;
+while(ploc->name!=ploc1->name)
+{
+ppre=ploc1;
+ploc1=ploc1->link;
+}
+return ppre;
+}
+void check(Head* head)
+{
+Node* ploc=head->link;
+while(ploc!=NULL && ploc->age<18)
+{
+Node* ppre=locatelist(head,ploc);
+deleteData(head,ppre);		
+ploc=ploc->link;
+}
+}
+void display(Head* head)
+{
+Node* ploc=head->link;
+while(ploc!=NULL)
+{
+	cout<<ploc->name<<" "<<ploc->age<<" "<<endl;
+	ploc=ploc->link;
+}
+}
+int main()
+{
+Head head;
+Node* ppre=NULL;
+createList(&head);
+int choice,age;
+string name;
+cout<<"1.Insert 2.Delete 3.Display 4.Exit"<<endl;
+do
+{
+cout<<"Enter option?";
+cin>>choice;
+switch(choice)
+{
+case 1:
+cout<<"Enter name?";;
+cin>>name;
+cout<<"Enter age?";
+cin>>age;
+insertSLL(&head,name,age);
+break;
+case 2:
+check(&head);
+break;
+case 3:
+display(&head);
+break;
+case 4:
+break;
+}
+}while(choice!=4);
+}

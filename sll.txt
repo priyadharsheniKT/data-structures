@@ -1,0 +1,128 @@
+#include<iostream>
+using namespace std;
+struct Node
+{
+int data;
+struct Node* link;
+};
+struct Head
+{
+int count;
+struct Node* link;
+};
+void createList(struct Head* head)
+{
+head->count=0;
+head->link=NULL;
+}
+void insert(struct Head* head,struct Node* ppre,int dataIn)
+{
+struct Node* pnew=new Node;
+pnew->data=dataIn;
+if(ppre==NULL)//first node
+{	
+if(head->link==NULL)//empty list
+{
+head->link=pnew;
+pnew->link=NULL;
+}
+else//before existing 1st node
+{
+pnew->link=head->link;
+head->link=pnew;
+}
+
+}
+else//mid or end
+{
+pnew->link=ppre->link;
+ppre->link=pnew;
+}
+head->count+=1;
+}
+void deletenode(Head* head,Node* ppre,int target)
+{
+if(ppre==NULL)
+{
+if(head->link==NULL)
+{
+cout<<"Empty list"<<endl;
+}
+else if(head->count==1)
+{
+head->link=NULL;
+head->count=0;
+}
+else
+{
+head->link=head->link->link;
+}
+}
+else
+{
+ppre->link=ppre->link->link;
+}
+head->count--;
+}
+struct Node* locatelist(struct Head* head,int target)
+{
+struct Node* ploc;
+struct Node* ppre=NULL;
+ploc=head->link;
+while(ploc!=NULL && target>ploc->data)
+{
+ppre=ploc;
+ploc=ploc->link;		
+}
+return ppre;
+}
+void display(struct Head* head)
+{
+	cout<<"list:"<<endl;
+struct Node* ploc=head->link;
+if(ploc==NULL)
+{
+cout<<"Empty list"<<endl;
+}
+while(ploc!=NULL)
+{
+cout<<ploc->data<<" ";
+ploc=ploc->link;	
+}	
+}
+
+int main()
+{
+int data,choice=1;
+struct Head head;
+struct Head head2;
+createList(&head2);
+createList(&head);
+struct Node *ppre;
+cout<<"1.Insert 2.Delete 3.Display 4.exit"<<endl;
+do{
+	cout<<"\nEnter your choice?";
+	cin>>choice;
+switch(choice)
+{
+case 1:
+	cout<<"Enter data to insert?";
+	cin>>data;
+	ppre=locatelist(&head,data);
+	insert(&head,ppre,data);
+	break;
+case 2:
+	cout<<"Enter data to delete?";
+	cin>>data;
+	ppre=locatelist(&head,data);
+	deletenode(&head,ppre,data);
+	break;
+case 3:
+	display(&head);
+	break;
+
+case 5:
+		break;
+}
+}while(choice!=5);
+}

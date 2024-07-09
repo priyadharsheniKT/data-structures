@@ -1,0 +1,98 @@
+#include<iostream>
+using namespace std;
+struct Node
+{
+string name;
+int age;
+Node* link;
+};
+struct Head
+{
+int count;
+Node* link;
+};
+void createList(Head* head)
+{
+head->count=0;
+head->link=NULL;
+}
+void insertSLL(Head* head,string n,int a)
+{
+Node* pnew=new Node;
+pnew->name=n;
+pnew->age=a;
+pnew->link=head->link;
+head->link=pnew;
+head->count+=1;
+}
+void swap(Node* a,Node* b)
+{
+int temp;
+string s;
+temp=a->age;
+a->age=b->age;
+b->age=temp;
+s=a->name;
+a->name=b->name;
+b->name=s;
+}
+void bubblesort(Head* head)
+{
+int swapped;
+Node* ptr1,*lptr=NULL;
+do
+{
+swapped=0;
+ptr1=head->link;
+while(ptr1->link!=lptr)
+{
+if(ptr1->age>ptr1->link->age)	
+{
+swap(ptr1,ptr1->link);
+swapped=1;
+}
+ptr1=ptr1->link;
+}
+lptr=ptr1;
+}while(swapped==1);
+}
+void display(Head* head)
+{
+Node* ploc=head->link;
+while(ploc!=NULL)
+{
+	cout<<ploc->name<<" "<<ploc->age<<" "<<endl;
+	ploc=ploc->link;
+}
+}
+int main()
+{
+Head head;
+Node* ppre=NULL;
+createList(&head);
+int choice,age;
+string name;
+cout<<"1.Insert 2.Display 3.Sort 4.Exit"<<endl;
+do
+{
+cout<<"Enter option?";
+cin>>choice;
+switch(choice)
+{
+case 1:
+cout<<"Enter name?";;
+cin>>name;
+cout<<"Enter age?";
+cin>>age;
+insertSLL(&head,name,age);
+break;
+case 2:
+display(&head);
+break;
+case 3:
+bubblesort(&head);
+display(&head);
+break;
+}
+}while(choice!=4);
+}

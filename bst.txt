@@ -1,0 +1,60 @@
+#include<iostream>
+using namespace std;
+struct Node
+{
+int key;
+Node* left;
+Node* right;
+};
+Node* getnewnode(int value)
+{
+Node* pnew=new Node;
+pnew->key=value;
+pnew->left=NULL;
+pnew->right=NULL;
+return pnew;
+}
+Node* insert(Node* root,int value)
+{
+if(root==NULL)
+{
+return getnewnode(value);
+}
+if(root->key>value)
+root->left=insert(root->left,value);
+else if(root->key<value)
+{
+root->right=insert(root->right,value);
+}
+return root;
+}
+void inorder(Node* root)
+{
+if(root!=NULL)
+{
+inorder(root->left);
+cout<<root->key<<" ";
+inorder(root->right);
+}
+}
+int main()
+{
+int value;
+    struct Node *root = NULL;
+    cout<<"Enter the value to insert?";
+    cin>>value;
+    do
+    {
+    root=insert(root,value);
+    cout<<"Enter the value to insert?";
+    cin>>value;
+	}while(value!=-1);
+    cout<<"Initial tree:"<<endl;
+    inorder(root);
+    cout<<"\n";
+    /*cout<<"Enter value to delete?";
+    cin>>value;
+    root=removeNode(root,value);
+    cout<<"\n";
+    inorder(root);*/	
+}

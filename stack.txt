@@ -1,0 +1,67 @@
+#include<iostream>
+using namespace std;
+struct Node
+{
+int data;
+struct Node* link;
+};
+struct Head
+{
+int count;
+Node* link;
+};
+void createList(Head* head)
+{
+head->count=0;
+head->link=NULL;
+}
+void push(Head* head,int dataIn)
+{
+Node* pnew= new Node;
+pnew->data=dataIn;
+pnew->link=head->link;
+head->link=pnew;
+}
+void pop(Head* head)
+{
+cout<<head->link->data<<" is deleted"<<endl;
+head->link=head->link->link;
+}
+void display(Head* head)
+{
+Node* ploc=head->link;
+while(ploc!=NULL)
+{
+cout<<ploc->data<<" ";
+ploc=ploc->link;
+}
+cout<<endl;
+}
+int main()
+{
+int data,choice=1;
+struct Head head;
+createList(&head);
+struct Node *ppre;
+cout<<"1.Insert 2.delete 3.display 4.exit"<<endl;
+do{
+	cout<<"Enter your choice?";
+	cin>>choice;
+switch(choice)
+{
+case 1:
+	cout<<"Enter data to insert?";
+	cin>>data;
+	push(&head,data);
+	break;
+case 2:
+	pop(&head);
+	break;
+case 3:
+	display(&head);
+	break;
+case 4:
+	break;
+}
+}while(choice!=4);
+}

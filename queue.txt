@@ -1,0 +1,141 @@
+#include<iostream>
+using namespace std;
+struct Node
+{
+int data;
+struct Node* link;
+};
+struct Head
+{
+int count;
+struct Node* front;
+struct Node* rear;
+};
+void createQueue(struct Head* head)
+{
+head->front=NULL;
+head->rear=NULL;
+head->count=0;
+}
+bool isempty(struct Head* head)
+{
+if(head==NULL)
+{
+return true;
+}
+else
+return false;
+}
+void enqueue(struct Head* head,int dataIn)
+{
+struct Node* newnode=new Node;
+newnode->data=dataIn;
+newnode->link=NULL;
+if(head->front==NULL)
+{
+head->front=newnode;
+head->rear=newnode;
+}
+else
+{
+head->rear->link=newnode;
+head->rear=newnode;
+}
+head->count++;
+}
+void dequeue(struct Head* head)
+{
+int item;
+item=head->front->data;
+if(isempty(head))
+{
+cout<<"Underflow"<<endl;
+}
+if(head->count==1)
+{
+head->front=NULL;	
+head->rear=NULL;
+}
+else
+cout<<item<<"is deleted"<<endl;
+head->front=head->front->link;
+head->count--;
+}
+void queueFront(struct Head* head)
+{
+int dataOut;
+if(head->front==NULL)
+{
+cout<<"Empty queue"<<endl;
+}
+else
+{
+dataOut=head->front->data;
+}
+cout<<dataOut<<"is front data"<<endl;
+}
+void queueRear(struct Head* head)
+{
+int dataOut;
+if(head->front==NULL)
+{
+cout<<"Empty queue"<<endl;
+}
+else
+{
+dataOut=head->rear->data;
+}
+cout<<dataOut<<"is rear data"<<endl;
+}
+void display(Head* head)
+{
+if(head->front==NULL)
+{
+cout<<"Empty list"<<endl;
+}
+else
+{
+Node* ploc=new Node;
+ploc=head->front;
+while(ploc!=NULL)
+{
+cout<<ploc->data<<" ";
+ploc=ploc->link;
+}
+cout<<endl;
+}
+}
+int main()
+{
+struct Head q;
+createQueue(&q);
+int choice,value;
+cout<<"Enter 1.Enqueue 2.Dequeue 3.queueFront 4.queueRear 5.display 6.Exit"<<endl;
+do
+{
+cout<<"Enter your choice?"<<endl;
+cin>>choice;
+switch(choice)
+{
+case 1:
+cout<<"Enter value to insert?";
+cin>>value;
+enqueue(&q,value);
+break;
+case 2:
+dequeue(&q);
+break;
+case 3:
+queueFront(&q);
+break;
+case 4:
+queueRear(&q);
+break;
+case 5:
+display(&q);
+break;
+case 6:
+break;
+}
+}while(choice!=6);
+}

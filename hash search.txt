@@ -1,0 +1,118 @@
+#include<iostream>
+using namespace std;
+struct Node
+{
+	int data;
+	struct Node* link;
+}*array[5];
+
+void insertnode(int key)
+{
+int addr=key%5;
+struct Node* ploc;
+ploc=array[addr];
+struct Node* pnew=new Node;
+pnew->data=key;
+pnew->link=NULL;
+if(array[addr]==NULL)
+{
+	array[addr]=pnew;
+}
+else//synonym 
+{
+pnew->link=ploc->link;//adding in first after array[addr] node
+ploc->link=pnew;
+}	
+}
+void deletenode(struct Node* ppre,int loc)
+{
+if(ppre==NULL)//deleting first node i.e array[addr] node
+{
+array[loc]=array[loc]->link;
+}
+else
+{
+ppre->link=ppre->link->link;
+}
+}
+struct Node* locatelist(int target,int *loc=0)
+{
+struct Node*ploc,*ppre=NULL;
+*loc=target%5;
+ploc=array[*loc];
+while(ploc!=NULL && target!=ploc->data)
+{
+ppre=ploc;
+ploc=ploc->link;
+}
+return ppre;
+}
+void search(int target)
+{int j;
+ Node* ploc;
+ int loc=target%5;
+ ploc=array[loc];
+ while(ploc!=NULL)
+ {if (target==ploc->data)
+     {cout<<"found at index "<<loc<<" at pos "<<j;
+      break;
+	 }
+  ploc=ploc->link;
+  j++;
+ }
+}
+void display()
+{
+for(int i=0;i<5;i++)
+{
+cout<<i<<" ";
+struct Node*ploc;
+ploc=array[i];
+while(ploc!=NULL)
+{
+cout<<ploc->data<<" ";
+ploc=ploc->link;
+}
+cout<<endl;
+}
+}
+int main()
+{
+ 	int choice=1,loc;
+ 	for(int i=0;i<5;i++)
+ 	{
+ 	array[i]=NULL;
+    }
+ 	struct Node* ppre;
+ 	int data;
+ 	cout<<"1.Insert 2.Delete 3.Display 4.Search 5.Exit"<<endl;
+ 	do
+	 {
+	cout<<"\nEnter your choice?"<<endl;
+ 	cin>>choice;
+ 	switch(choice)
+ 	{
+    case 1:
+	   cout<<"enter the data to be inserted :";
+	   cin>>data;
+	   insertnode(data);
+	   break;
+	 case 2:
+	   cout<<"enter the data to be deleted:";
+	   cin>>data;
+	   ppre= locatelist(data,&loc);
+	   deletenode(ppre,loc);
+	   break;
+	case 3:
+		display();
+		break;
+	case 4:
+		cout<<"Enter ele to search?";
+		cin>>data;
+		search(data);
+		break;
+	case 5:
+	 break;	
+	}
+ }while(choice !=5);
+}

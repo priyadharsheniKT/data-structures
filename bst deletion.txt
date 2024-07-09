@@ -1,0 +1,58 @@
+int getrightmin(Node* root)
+{
+Node* temp=root;
+while(temp->left!=NULL)
+{
+temp=temp->left;
+}
+return temp->key;
+}
+Node* deletebst(Node* root,int value)
+{
+if(root==NULL)
+return NULL;
+if(root->key>value)
+{
+root->left=deletebst(root->left,value);
+}
+else if(root->key<value)
+{
+root->right=deletebst(root->right,value);
+}
+else
+{
+if(root->left==NULL && root->right==NULL)	
+{
+delete root;
+return NULL;	
+}
+else if(root->left==NULL)
+{
+Node* temp=root->right;
+delete root;
+return temp;
+}
+else if(root->right==NULL)
+{
+Node* temp=root->left;
+delete root;
+return temp;	
+}
+else
+{
+int min=getrightmin(root->right);
+root->key=min;
+root->right=deletebst(root->right,min);
+}
+}
+return root;
+}
+void inorder(Node* root)
+{
+if(root!=NULL)
+{
+inorder(root->left);
+cout<<root->key<<" ";
+inorder(root->right);
+}
+}

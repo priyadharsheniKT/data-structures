@@ -1,0 +1,98 @@
+#include<iostream>
+using namespace std;
+struct Node
+{
+int data;
+struct Node* link;
+};
+struct Head
+{
+int count;
+struct Node* link;
+};
+void createList(struct Head* head)
+{
+head->count=0;
+head->link=NULL;
+}
+void insert(struct Head* head,int dataIn)
+{
+struct Node* pnew=new Node;
+pnew->data=dataIn;
+pnew->link=head->link;
+head->link=pnew;
+head->count++;
+}
+void display(struct Head* head) 
+{ 
+    struct Node* temp = head->link;  
+    while (temp!=NULL) 
+    { 
+        cout<<temp->data<<" "; 
+        temp = temp->link; 
+    } 
+    cout<<endl;
+} 
+void swap(struct Node *a, struct Node *b) 
+{ 
+    int temp = a->data; 
+    a->data = b->data; 
+    b->data = temp; 
+} 
+void bubblesort(struct Head* head)
+{
+int swapped;
+    struct Node *ptr1; 
+    struct Node *lptr = NULL; 
+  
+    /* Checking for empty list */
+    if (head == NULL) 
+        return; 
+  
+    do
+    { 
+        swapped = 0; 
+        ptr1 = head->link; 
+  
+        while (ptr1->link != lptr) 
+        { 
+            if (ptr1->data > ptr1->link->data) 
+            { 
+                swap(ptr1, ptr1->link); 
+                swapped = 1; 
+            } 
+            ptr1 = ptr1->link; 
+        } 
+        lptr = ptr1; 
+    } 
+    while (swapped); 
+}
+int main()
+{
+int data,choice=1;
+struct Head head;
+createList(&head);
+struct Node *ppre;
+cout<<"1.Insert 2.display 3. Sort 4.Exit"<<endl;
+do{
+	cout<<"Enter your choice?";
+	cin>>choice;
+switch(choice)
+{
+case 1:
+	cout<<"Enter data to insert?";
+	cin>>data;
+	insert(&head,data);
+	break;
+case 2:
+	display(&head);
+	break;
+case 3:
+	bubblesort(&head);
+	display(&head);
+	break;
+case 4:
+	break;
+}
+}while(choice!=4);
+}
